@@ -30,12 +30,4 @@ public class AuthController {
     public LoginResponse login(@Valid @RequestBody LoginRequest request) {
         return authService.login(request);
     }
-
-    // to test JWT token
-    // @GetMapping("/test")
-    // public String test() {
-    //     return "JWT Working";
-    // }
-
-    
 }
