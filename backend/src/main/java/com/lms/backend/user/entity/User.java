@@ -4,8 +4,14 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.lms.backend.assignment.entity.Submission;
 import com.lms.backend.common.enums.Role;
+import com.lms.backend.course.entity.Course;
+import com.lms.backend.enrollment.entity.Enrollment;
+import com.lms.backend.progress.entity.Progress;
 
 @Entity
 @Table(name = "users")
@@ -37,6 +43,10 @@ public class User {
     @Builder.Default
     private Boolean active = true;
 
+    @OneToMany(mappedBy = "student")
+    @Builder.Default
+    private List<Submission> submissions = new ArrayList<>();
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
@@ -51,4 +61,17 @@ public class User {
     public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "instructor")
+    @Builder.Default
+    private List<Course> courses =new ArrayList<>();
+    
+    @OneToMany(mappedBy = "student")
+    @Builder.Default
+    private List<Enrollment> enrollments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student")
+    @Builder.Default
+    private List<Progress> progressList =
+            new ArrayList<>();
 }
